@@ -7,7 +7,7 @@ r = sr.Recognizer()
 while True:
 
     with sr.Microphone() as source:
-
+        r.adjust_for_ambient_noise(source)
         print("have a conversation with the machine: ")
         order = r.listen(source)
         try:
