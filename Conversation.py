@@ -31,17 +31,13 @@ def conversation(word):
             speak.runAndWait()
 
         elif word == "what time is it in London":
-            a = tm.strftime('%H')
-            b = int(a)+3
-            print((str(b) + tm.strftime(':%M:%S', tm.localtime())))
-            speak.say(str(b) + tm.strftime(':%M:%S', tm.localtime()))
+            print((str(int(tm.strftime('%H')) + 3) + tm.strftime(':%M:%S', tm.localtime())))
+            speak.say(str(int(tm.strftime('%H')) + 3) + tm.strftime(':%M:%S', tm.localtime()))
             speak.runAndWait()
 
         elif word == "what time is it in Washington":
-            a = tm.strftime('%H')
-            b = int(a) - 2
-            print((str(b) + tm.strftime(':%M:%S', tm.localtime())))
-            speak.say(str(b) + tm.strftime(':%M:%S', tm.localtime()))
+            print((str(int(tm.strftime('%H')) - 2) + tm.strftime(':%M:%S', tm.localtime())))
+            speak.say(str(int(tm.strftime('%H')) - 2) + tm.strftime(':%M:%S', tm.localtime()))
             speak.runAndWait()
 
         elif word == "what time is it":
@@ -52,7 +48,8 @@ def conversation(word):
         elif word == "stop":
             print("okay, see you later")
             speak.say("okay, see you later")
-            tm.sleep(3)
+            speak.runAndWait()
+            tm.sleep(1)
             exit()
 
         elif word == "I'm fine thanks how about you":
@@ -71,63 +68,70 @@ def conversation(word):
         elif word == "I want to do an addition":
             speak.say("tell me the first number: ")
             print("tell me the first number: ")
+            speak.runAndWait()
             num1 = r.listen(source)
             speak.say("tell me the second number: ")
             print("tell me the second number: ")
+            speak.runAndWait()
             num2 = r.listen(source)
             number_1 = r.recognize_google(num1, language='en-US')
             number_2 = r.recognize_google(num2, language='en-US')
-            speak.say("the addition value is = ")
-            print("the addition value is = ")
             x = int(number_1) + int(number_2)
-            speak.say(str(x))
-            print((str(x)))
+            speak.say("the addition value is  " + str(x))
+            print("the addition value is  " + str(x))
+            speak.runAndWait()
+
 
 
         elif word == "I want to do a multiplication":
             speak.say("tell me the first number: ")
             print("tell me the first number: ")
+            speak.runAndWait()
             num1 = r.listen(source)
             speak.say("tell me the second number: ")
             print("tell me the second number: ")
+            speak.runAndWait()
             num2 = r.listen(source)
             number_1 = r.recognize_google(num1, language='en-US')
             number_2 = r.recognize_google(num2, language='en-US')
-            speak.say("the multiplication value is = ")
-            print("the multiplication value is = ")
-            x = int(number_1) + int(number_2)
-            speak.say(str(x))
-            print((str(x)))
+            x = int(number_1) * int(number_2)
+            speak.say("the multiplication value is " + str(x))
+            print("the multiplication value is " + str(x))
+            speak.runAndWait()
+
 
         elif word == "I want to do a subtraction":
             speak.say("tell me the first number: ")
             print("tell me the first number: ")
+            speak.runAndWait()
             num1 = r.listen(source)
             speak.say("tell me the second number: ")
             print("tell me the second number: ")
+            speak.runAndWait()
             num2 = r.listen(source)
             number_1 = r.recognize_google(num1, language='en-US')
             number_2 = r.recognize_google(num2, language='en-US')
-            speak.say("the subtraction value is = ")
-            print("the subtraction value is = ")
             x = int(number_1) - int(number_2)
-            speak.say(str(x))
-            print((str(x)))
+            speak.say("the subtraction value is " + str(x))
+            print("the subtraction value is " + str(x))
+            speak.runAndWait()
 
         elif word == "I want to do a division":
             speak.say("tell me the first number: ")
             print("tell me the first number: ")
+            speak.runAndWait()
             num1 = r.listen(source)
             speak.say("tell me the second number: ")
             print("tell me the second number: ")
+            speak.runAndWait()
             num2 = r.listen(source)
             number_1 = r.recognize_google(num1, language='en-US')
             number_2 = r.recognize_google(num2, language='en-US')
-            speak.say("the division value is = ")
-            print("the division value is = ")
-            x = int(number_1) + int(number_2)
-            speak.say(str(x))
-            print((str(x)))
+            x = int(number_1) / int(number_2)
+            speak.say("the division value is " + str(x))
+            print("the division value is " + str(x))
+            speak.runAndWait()
+
 
         else:
             speak.say("I wasn't prepared for this conversation, I sorry")
