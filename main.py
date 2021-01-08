@@ -3,6 +3,7 @@ import logging
 import Conversation as Cv
 
 if __name__ == '__main__':
+
     r = sr.Recognizer()
     while True:
         with sr.Microphone() as source:
@@ -16,6 +17,7 @@ if __name__ == '__main__':
                 Order = r.recognize_google(order, language='en-US')
                 print("You said: " + Order)
                 Cv.conversation(Order)
+
 
             except Exception as e:
                 logging.exception(e)

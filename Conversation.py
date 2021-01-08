@@ -1,6 +1,8 @@
 import time as tm
 import pyttsx3
 import speech_recognition as sr
+from bs4 import BeautifulSoup
+import requests
 
 r = sr.Recognizer()
 speak = pyttsx3.init('sapi5')
@@ -28,21 +30,6 @@ def conversation(word):
             tm.sleep(1)
             speak.say("hi, how are you?")
             print("hi, how are you?")
-            speak.runAndWait()
-
-        elif word == "what time is it in London":
-            print((str(int(tm.strftime('%H')) + 3) + tm.strftime(':%M:%S', tm.localtime())))
-            speak.say(str(int(tm.strftime('%H')) + 3) + tm.strftime(':%M:%S', tm.localtime()))
-            speak.runAndWait()
-
-        elif word == "what time is it in Washington":
-            print((str(int(tm.strftime('%H')) - 2) + tm.strftime(':%M:%S', tm.localtime())))
-            speak.say(str(int(tm.strftime('%H')) - 2) + tm.strftime(':%M:%S', tm.localtime()))
-            speak.runAndWait()
-
-        elif word == "what time is it":
-            print((tm.strftime('%H:%M:%S', tm.localtime())))
-            speak.say(tm.strftime('%H:%M:%S', tm.localtime()))
             speak.runAndWait()
 
         elif word == "stop":
@@ -100,6 +87,9 @@ def conversation(word):
             speak.runAndWait()
 
 
+
+
+
         elif word == "I want to do a subtraction":
             speak.say("tell me the first number: ")
             print("tell me the first number: ")
@@ -130,6 +120,31 @@ def conversation(word):
             x = int(number_1) / int(number_2)
             speak.say("the division value is " + str(x))
             print("the division value is " + str(x))
+            speak.runAndWait()
+
+        elif word == "what is the weather":
+            speak.say("Which country do you wanna Know the weather?: ")
+            print("Which country do you wanna Know the weather? ")
+            speak.runAndWait()
+            weathers = r.listen(source)
+            country = r.recognize_google(weathers, language='en-US')
+            weather = requests.get('https://google.com/search?q=' + 'what is the weather in ' + country
+                                   + " in fahrenheit")
+            soup = BeautifulSoup(weather.content, 'html.parser')
+            speak.say(soup.find('div', class_='BNeawe iBp4i AP7Wnd').text)
+            print(soup.find('div', class_='BNeawe iBp4i AP7Wnd').text)
+            speak.runAndWait()
+
+        elif word == "what time is it":
+            speak.say("Which country do you wanna Know the time?: ")
+            print("Which country do you wanna Know the time? ")
+            speak.runAndWait()
+            times = r.listen(source)
+            country = r.recognize_google(times, language='en-US')
+            time = requests.get('https://google.com/search?q=' + 'what time is it in ' + country)
+            soup = BeautifulSoup(time.content, 'html.parser')
+            speak.say(soup.find('div', class_='BNeawe iBp4i AP7Wnd').text + ' o clock')
+            print(soup.find('div', class_='BNeawe iBp4i AP7Wnd').text + ' o clock')
             speak.runAndWait()
 
 
