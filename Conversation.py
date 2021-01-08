@@ -16,7 +16,6 @@ volume = speak.getProperty("volume")
 speak.setProperty("volume", 1)
 
 
-
 def conversation(word):
     with sr.Microphone() as source:
         if word == "hello":
@@ -29,6 +28,25 @@ def conversation(word):
             tm.sleep(1)
             speak.say("hi, how are you?")
             print("hi, how are you?")
+            speak.runAndWait()
+
+        elif word == "what time is it in London":
+            a = tm.strftime('%H')
+            b = int(a)+3
+            print((str(b) + tm.strftime(':%M:%S', tm.localtime())))
+            speak.say(str(b) + tm.strftime(':%M:%S', tm.localtime()))
+            speak.runAndWait()
+
+        elif word == "what time is it in Washington":
+            a = tm.strftime('%H')
+            b = int(a) - 2
+            print((str(b) + tm.strftime(':%M:%S', tm.localtime())))
+            speak.say(str(b) + tm.strftime(':%M:%S', tm.localtime()))
+            speak.runAndWait()
+
+        elif word == "what time is it":
+            print((tm.strftime('%H:%M:%S', tm.localtime())))
+            speak.say(tm.strftime('%H:%M:%S', tm.localtime()))
             speak.runAndWait()
 
         elif word == "stop":
@@ -116,7 +134,8 @@ def conversation(word):
             print("I wasn't prepared for this conversation, I sorry")
             speak.runAndWait()
 
-def erromsg():
+
+def error_msg():
     speak.say("Sorry, I don't got it")
     print("Sorry, I don't got it")
     speak.runAndWait()
