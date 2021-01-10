@@ -3,6 +3,10 @@ import pyttsx3
 import speech_recognition as sr
 from bs4 import BeautifulSoup
 import requests
+from datetime import datetime
+from random import randint
+
+
 
 r = sr.Recognizer()
 speak = pyttsx3.init('sapi5')
@@ -20,6 +24,7 @@ speak.setProperty("volume", 1)
 
 def conversation(word):
     with sr.Microphone() as source:
+
         if word == "hello":
             tm.sleep(1)
             speak.say("Hello, how are you?")
@@ -30,6 +35,13 @@ def conversation(word):
             tm.sleep(1)
             speak.say("hi, how are you?")
             print("hi, how are you?")
+            speak.runAndWait()
+
+        elif word == "how old you are":
+            tm.sleep(1)
+            age = str(randint(18, 50))
+            speak.say(age)
+            print(age)
             speak.runAndWait()
 
         elif word == "stop":
@@ -68,8 +80,6 @@ def conversation(word):
             print("the addition value is  " + str(x))
             speak.runAndWait()
 
-
-
         elif word == "I want to do a multiplication":
             speak.say("tell me the first number: ")
             print("tell me the first number: ")
@@ -85,10 +95,6 @@ def conversation(word):
             speak.say("the multiplication value is " + str(x))
             print("the multiplication value is " + str(x))
             speak.runAndWait()
-
-
-
-
 
         elif word == "I want to do a subtraction":
             speak.say("tell me the first number: ")
@@ -123,7 +129,7 @@ def conversation(word):
             speak.runAndWait()
 
         elif word == "what is the weather":
-            speak.say("Which country do you wanna Know the weather?: ")
+            speak.say("Which country or State do you wanna Know the weather?: ")
             print("Which country do you wanna Know the weather? ")
             speak.runAndWait()
             weathers = r.listen(source)
@@ -135,8 +141,21 @@ def conversation(word):
             print(soup.find('div', class_='BNeawe iBp4i AP7Wnd').text)
             speak.runAndWait()
 
+        elif word == "how old is":
+            speak.say("who you wanna know the age?: ")
+            print("who you wanna know the age?: ")
+            speak.runAndWait()
+            person = r.listen(source)
+            human = r.recognize_google(person, language='en-US')
+            question = requests.get('https://google.com/search?q=' + 'how old is' + human)
+            soup = BeautifulSoup(question.content, 'html.parser')
+            age = (soup.find('div', class_='BNeawe iBp4i AP7Wnd').text.split())
+            speak.say(age[0] + " Years old")
+            print(age[0] + " Years old")
+            speak.runAndWait()
+
         elif word == "what time is it":
-            speak.say("Which country do you wanna Know the time?: ")
+            speak.say("Which country or State do you wanna Know the time?: ")
             print("Which country do you wanna Know the time? ")
             speak.runAndWait()
             times = r.listen(source)
@@ -147,6 +166,12 @@ def conversation(word):
             print(soup.find('div', class_='BNeawe iBp4i AP7Wnd').text + ' o clock')
             speak.runAndWait()
 
+        elif word == "what time is it now":
+            now = datetime.now()
+            current_time = now.strftime("%H:%M")
+            speak.say("Current Time " + current_time)
+            print("Current Time =", current_time + ' o clock')
+            speak.runAndWait()
 
         else:
             speak.say("I wasn't prepared for this conversation, I sorry")
