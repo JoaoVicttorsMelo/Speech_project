@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
                 Order = r.recognize_google(order, language='en-US')
                 print("You said: " + Order)
-                Cv.conversation('how old is')
+                Cv.conversation(Order)
 
 
             except Exception as e:
